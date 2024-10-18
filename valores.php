@@ -37,6 +37,8 @@ if ($conexao -> connect_errno) {
             }
         
         } else{
+        session_start();
+        $_SESSION['login_error'] = "Login falhou! Verifique seu nome de usuário e senha.";
         $conexao ->close();
         header("location: index.php", true,301);
         exit();
