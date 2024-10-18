@@ -50,6 +50,7 @@ label {
   font-size: 18px;
   margin-bottom: 5px;
   color: #c0c0c0;
+  user-select: none;
 }
 
 input[type="text"], input[type="password"] {
