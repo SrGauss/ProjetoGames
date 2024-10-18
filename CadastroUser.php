@@ -120,7 +120,7 @@ input[type="submit"]:hover {
             </div>
             <div class="form-group">
             <label style="position:relative;top:-55px;" for="password">Senha:</label>
-            <input required="" name="Password" id="Password" type="password">
+            <input required="" name="Password" id="Password" type="text">
             </div>
             <div class="form-group">
             <input value="Cadastrar" type="submit">
