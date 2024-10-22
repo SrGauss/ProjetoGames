@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="Venom.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="Estilo.css">
+    <link rel="stylesheet" href="Style.css">
     <title>Tela do Gerente</title>
 </head>
 
 <style>
+
+body{
+    background-color: #1b2838;
+}
 
 /* .Middle1{
     position: absolute;
@@ -102,16 +106,38 @@ button p{
     left: -100px;
 }
 
+.BtnV{
+    position: absolute;
+    z-index: 6;
+    top: 13%;
+    left: -4.5%;
+    transform: translate(-50%, 200%);
+    width: 13em;
+    height: 2em;
+    background-color: #6c9018;
+    font-size: 26px;
+    transform: scaleX(-1);
+    transform: skew(-25deg);
+    transition: all 0.3s ease;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.BtnV p{
+    position: absolute;
+    top: -18px;
+    left: 90px;
+}
+
+.BtnV:hover{
+    left: -3%;
+    cursor: pointer
+}
+
 </style>
 
 <body>
-
-<a href="sair.php" class="Exit"><button>Sair</button></a>
-
-<a href="RRecebe.php"><button class="BtnV"><p>Cadastrar Cliente</p></button></a>
-
-<span class="Middle1"></span><span class="Middle2"></span><span class="MiddleCircle"></span>
-
 
 <?php
 
@@ -131,3 +157,12 @@ echo "<header><p class='bi bi-person-circle'> ".$Nome."</p></header>"
 /* include("conexao.php")*/
 ?>
 
+<a href="sair.php" class="Exit"><button>Sair</button></a>
+
+<a href="jogosNew.php"><button class="BtnV"><p>Cadastrar Jogo</p></button></a>
+
+<span class="Middle1"></span><span class="Middle2"></span><span class="MiddleCircle"></span>
+
+
+</body>
+</html>
