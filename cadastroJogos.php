@@ -6,10 +6,15 @@
     <link rel="shortcut icon" href="Venom.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="Style.css">
     <title>Tela do Gerente</title>
 </head>
 
 <style>
+
+body{
+    background-color: #1b2838;
+}
 
 body{
     background-color: #1b2838;
