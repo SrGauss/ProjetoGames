@@ -44,8 +44,8 @@ body{
 
 table{
     position: relative;
-    top: 180px; 
-    left: 400px; 
+    top: 120px; 
+    left: 200px; 
     height: 104px;
     width: 280px;
     font-size: 19px;
@@ -55,7 +55,7 @@ table{
 
 td button{
     height: 30px;
-    width: 78px;
+    width: 80px;
     color: white;
     text-shadow: 1px 1px 1px black;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -67,11 +67,12 @@ td button:hover{
 
 th{
     text-align: center;
+    font-size: 18px;
 }
 
 
 tr, td, th {
-    border-bottom:  1.5px solid black;
+    border-bottom:  3.5px solid black;
     padding: 10px;
 }
 
@@ -88,7 +89,10 @@ button p{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     border: 3px outset;
     background-color: crimson; 
-    overflow: hidden;
+    position: relative;
+    left: 2px;
+    top: 16px;
+
 }
 
 .Dell a{
@@ -104,6 +108,7 @@ button p{
     border: 2px outset;
     position: relative;
     left: -100px;
+    top: -21px;
 }
 
 .BtnV{
@@ -135,6 +140,19 @@ button p{
     cursor: pointer
 }
 
+.Iimagens{
+    position: relative;
+    height: 50px;
+    width: auto;
+}
+
+.Ddesc{
+    text-wrap: wrap;
+    clear: left;
+    position: relative;
+    font-size: 12px;
+}
+
 </style>
 
 <body>
@@ -163,6 +181,68 @@ echo "<header><p class='bi bi-person-circle'> ".$Nome."</p></header>"
 
 <span class="Middle1"></span><span class="Middle2"></span><span class="MiddleCircle"></span>
 
+<?php
+
+$hostname = "127.0.0.1";
+$user = "root";
+$password = "root";
+$database = "votacaodosgames";
+
+$conexao = new mysqli($hostname,$user,$password,$database);
+
+if ($conexao -> connect_errno) {
+    echo "Falha ao comunicar com banco de dados.". $conexao -> connect_error;
+    exit();
+}else{
+
+    $sql = "SELECT `id`,`nomeJogos`,`descricao`,`image1`,`image2` FROM `jogos`  WHERE `NomeCriador` = '".$_SESSION['User']."';";
+    $dado = $conexao->query($sql);
+
+    echo "";
+    echo "<table>";
+    echo "<tr>";
+        echo "<th>Nome:&emsp;&emsp;&emsp;&emsp;</th>";
+        echo "<th>Descrição:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
+        echo "<th>Imagens:&emsp;&emsp;</th>";
+        echo "<th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
+        echo "<th></th>";
+
+    echo "</tr>";
+
+while($row = mysqli_fetch_array($dado)){
+
+     echo "<tr>";
+         echo "<td>&ensp;$row[1]</td>";
+         echo "<td class='Ddesc'>&ensp;$row[2]</td>";
+         echo "<td><img class='Iimagens' src='$row[3]' alt='Foto de exibição' /></td>";
+         echo "<td><img class='Iimagens' src='$row[4]' alt='Foto de exibição' /></td>";
+
+
+    echo '<td>
+            <form action="Excluir.php" method="POST">
+                <input type="hidden" id="Dell" name="Dell" value='.$row[0].'>
+                <button class="Dell" type="submit">Excluir</button>
+            </form>
+        </td>
+    
+        <td style="border-bottom: none;">
+            <form action="Visualizar.php" method="POST">
+                <input type="hidden" id="View" name="View" value='.$row[1].'>
+                <button class="See" type="submit">Visualizar</button>
+            </form>
+         </td>';
+         echo "</tr>";
+
+    echo "";
+}
+echo "</table>";
+
+$conexao -> close();
+    
+}
+
+
+?>
 
 </body>
 </html>

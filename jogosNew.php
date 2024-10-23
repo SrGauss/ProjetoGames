@@ -129,44 +129,74 @@
            $hostname = "127.0.0.1";
            $user = "root";
            $senha = "root";
-           $bd = "guricred";
+           $bd = "votacaodosgames";
 
            $conexao = new mysqli($hostname,$user,$senha,$bd);
 
-           if ($conexao -> connect_errno) {
-            echo "erro" . $conexao -> connect_error;
-           }
-           else{
-            $jogo = $conexao -> real_escape_string($_POST["jogo"]);
-            $desc = $conexao -> real_escape_string($_POST["desc"]);
+           if ($conexao->connect_errno) {
+            echo "Erro na conexão: " . $conexao->connect_error;
+        } else {
+            $jogo = $conexao->real_escape_string($_POST["jogo"]);
+            $desc = $conexao->real_escape_string(nl2br($_POST["desc"]));
 
-            if ($jogo != "") {
-            $sql1 = "SELECT `Nomejogo`, `ativo` FROM `jogos` WHERE `Nomejogo`='".$jogo."' AND `ativo`='s';";
-            $result1 = $conexao -> query($sql1);
-                if ($result1->num_rows == 0) {
-                    $sql = "INSERT INTO `guricred`.`jogos`(`NomeGerente`, `Nomejogo`,`ativo`,`desc`) VALUES ('".$_SESSION['User']."', '".$jogo."','s','".$desc."');";
-                    $resultado = $conexao->query($sql);
-                }else{
-                    echo '<script>alert("Usuario ja cadastrado")</script>';
-                }
-            }else if($jogo == ""){
-                echo "<br>";
-                echo "Nome vazio";
+            // Definir o diretório para salvar as imagens
+            $diretorio = "uploads/";
+
+            // Verificar se o diretório existe, se não, criar
+            if (!is_dir($diretorio)) {
+                mkdir($diretorio, 0777, true);
             }
 
-            $conexao ->close();
-           }
-        }
-        }
-    ?>
+            // Verificar se as imagens foram enviadas
+            if (isset($_FILES["image1"]) && isset($_FILES["image2"])) {
 
-<form class="Cadastro" action="RRecebe.php" method="post">
+                // Caminho das imagens
+                $nome_imagem1 = $diretorio . basename($_FILES["image1"]["name"]);
+                $nome_imagem2 = $diretorio . basename($_FILES["image2"]["name"]);
+
+                // Mover as imagens para o diretório
+                $upload1 = move_uploaded_file($_FILES["image1"]["tmp_name"], $nome_imagem1);
+                $upload2 = move_uploaded_file($_FILES["image2"]["tmp_name"], $nome_imagem2);
+
+                if ($jogo != "") {
+                    $sql1 = "SELECT `nomeJogos` FROM `jogos` WHERE `nomeJogos`='".$jogo."';";
+                    $result1 = $conexao->query($sql1);
+
+                    if ($result1->num_rows == 0) {
+                        if ($upload1 && $upload2) {
+                            $sql = "INSERT INTO `jogos`(`nomeJogos`,`NomeCriador`,`descricao`,`image1`,`image2`) VALUES ('".$jogo."', '".$_SESSION['User']."', '".$desc."', '".$nome_imagem1."', '".$nome_imagem2."');";
+                            $resultado = $conexao->query($sql);
+
+                            if ($resultado) {
+                                echo "<script>alert('Jogo cadastrado com sucesso!');</script>";
+                            } else {
+                                echo "<script>alert('Erro ao cadastrar o jogo.');</script>";
+                            }
+                        } else {
+                            echo "<script>alert('Erro ao fazer o upload das imagens.');</script>";
+                        }
+                    } else {
+                        echo '<script>alert("Jogo já cadastrado");</script>';
+                    }
+                } else {
+                    echo "Nome do jogo está vazio.";
+                }
+            } else {
+                echo "Erro: Nenhuma imagem foi enviada.";
+            }
+
+            $conexao->close();
+        }
+    }
+}
+?>
+
+<form class="Cadastro" action="jogosNew.php" enctype="multipart/form-data" method="post">
         <label for="jogo">Insira o Nome do Jogo:</label><br>
         <input type="text" name="jogo" id="jogo">
         <br><br>
         <label for="desc">Insira a descrição:</label><br>
         <textarea class="desc" name="desc" maxlength="700" cols="23" rows="4" id="desc" wrap="hard"></textarea> <!--usar esse código para pegar o valor: $desc = nl2br($_POST['desc']); -->
-        <!--<input class="desc" type="text" minlength="0" name="desc" id="desc"/><br>-->
         <br><br>
         <label for="desc">Insira as imagens:</label><br>
         <input class="imgs" type="file" accept="image/png, image/jpeg" name="image1" id="image1"/><br>
