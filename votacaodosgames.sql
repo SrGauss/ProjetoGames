@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 17-Out-2024 às 11:02
+-- Generation Time: 24-Out-2024 às 01:20
 -- Versão do servidor: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `votacaodosgames` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `votacaodosgames`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `jogos`
+--
+
+DROP TABLE IF EXISTS `jogos`;
+CREATE TABLE IF NOT EXISTS `jogos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nomeJogos` varchar(255) NOT NULL,
+  `NomeCriador` varchar(255) NOT NULL,
+  `descricao` varchar(255) NOT NULL,
+  `image1` varchar(450) NOT NULL,
+  `image2` varchar(450) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `jogos`
+--
+
+INSERT INTO `jogos` (`id`, `nomeJogos`, `NomeCriador`, `descricao`, `image1`, `image2`) VALUES
+(1, 'Teste', 'Gustavo', 'abc', 'uploads/67e42b6794243971a665a323751c5853.jpg', 'uploads/5f451cf60cedba76695163baaa467614.jpg');
 
 -- --------------------------------------------------------
 
