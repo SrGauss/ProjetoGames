@@ -16,10 +16,6 @@ body{
     background-color: #1b2838;
 }
 
-body{
-    background-color: #1b2838;
-}
-
 /* .Middle1{
     position: absolute;
     top: 50%;
@@ -58,6 +54,10 @@ table{
     color: black;
 }
 
+td{
+    color: #66c0f4;
+}
+
 td button{
     height: 30px;
     width: 80px;
@@ -73,6 +73,8 @@ td button:hover{
 th{
     text-align: center;
     font-size: 18px;
+    color: white;
+    user-select: none;
 }
 
 
@@ -92,7 +94,7 @@ button p{
     color: white;
     text-shadow: 1px 1px 1px black;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    border: 3px outset;
+    border: solid 1px black;
     background-color: crimson; 
     position: relative;
     left: 2px;
@@ -109,8 +111,8 @@ button p{
 
 
 .See{
-    background-color: greenyellow;
-    border: 2px outset;
+    background-color: #969eab;
+    border: solid 1px black;
     position: relative;
     left: -100px;
     top: -21px;
@@ -122,6 +124,7 @@ button p{
     top: 13%;
     left: -4.5%;
     transform: translate(-50%, 200%);
+    border: none;
     width: 13em;
     height: 2em;
     background-color: #6c9018;
@@ -132,6 +135,7 @@ button p{
     color: white;
     text-shadow: 1px 1px 1px black;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    user-select: none;
 }
 
 .BtnV p{
@@ -147,15 +151,17 @@ button p{
 
 .Iimagens{
     position: relative;
-    height: 50px;
-    width: auto;
+    height: 75px;
+    width: 75px;
+    left: 21px;
+    border: solid 1px white;
 }
 
 .Ddesc{
     text-wrap: wrap;
     clear: left;
     position: relative;
-    font-size: 12px;
+    font-size: 18px;
 }
 
 </style>
@@ -217,7 +223,7 @@ if ($conexao -> connect_errno) {
 while($row = mysqli_fetch_array($dado)){
 
      echo "<tr>";
-         echo "<td>&ensp;$row[1]</td>";
+         echo "<td>&ensp;<strong>$row[1]</strong></td>";
          echo "<td class='Ddesc'>&ensp;$row[2]</td>";
          echo "<td><img class='Iimagens' src='$row[3]' alt='Foto de exibição' /></td>";
          echo "<td><img class='Iimagens' src='$row[4]' alt='Foto de exibição' /></td>";
